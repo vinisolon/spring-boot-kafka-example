@@ -13,7 +13,6 @@ public class JsonConverterUtil {
         try {
             return new ObjectMapper().writeValueAsString(obj);
         } catch (Exception e) {
-            log.error("Error converting object to json", e);
             throw new InternalError("Error converting object to json");
         }
     }
@@ -22,7 +21,6 @@ public class JsonConverterUtil {
         try {
             return new ObjectMapper().readValue(String.valueOf(value), clazz);
         } catch (Exception e) {
-            log.error("Error converting json to object", e);
             throw new InternalError("Error converting json to object");
         }
     }
