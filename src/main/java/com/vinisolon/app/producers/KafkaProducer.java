@@ -17,19 +17,9 @@ public class KafkaProducer {
     private final KafkaTemplate<String, Object> kafkaTemplate;
 
     public void publish(Object payload, String topic) {
-        log.info("Publishing Object: {} in Topic: {}", payload, topic);
-
-        var message = MessageBuilder.withPayload(payload)
-                .setHeader(KafkaHeaders.TOPIC, topic)
-                .build();
-
-        kafkaTemplate.send(message);
-    }
-
-    public void publishJson(Object payload, String topic) {
         var json = toJson(payload);
 
-        log.info("Publishing Json: {} in Topic: {}", json, topic);
+        log.info("Publishing JSON: {} in TOPIC: {}", json, topic);
 
         var message = MessageBuilder.withPayload(json)
                 .setHeader(KafkaHeaders.TOPIC, topic)
