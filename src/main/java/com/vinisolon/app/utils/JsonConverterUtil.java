@@ -9,11 +9,12 @@ import lombok.extern.slf4j.Slf4j;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class JsonConverterUtil {
 
-    public static String toJson(Object obj) {
+    public static <T> String toJson(T obj) {
         try {
             return new ObjectMapper().writeValueAsString(obj);
         } catch (Exception e) {
-            throw new InternalError("Error converting object to json");
+            log.error(e.getLocalizedMessage());
+            throw new InternalError("Error converting OBJECT to JSON");
         }
     }
 
@@ -21,7 +22,8 @@ public class JsonConverterUtil {
         try {
             return new ObjectMapper().readValue(String.valueOf(value), clazz);
         } catch (Exception e) {
-            throw new InternalError("Error converting json to object");
+            log.error(e.getLocalizedMessage());
+            throw new InternalError("Error mapping JSON to CLASS");
         }
     }
 

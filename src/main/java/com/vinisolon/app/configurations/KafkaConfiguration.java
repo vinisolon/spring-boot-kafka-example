@@ -11,22 +11,14 @@ import org.springframework.kafka.core.KafkaAdmin;
 @Configuration
 public class KafkaConfiguration {
 
-    @Value("${kafka.test.topic}")
-    private String kafkaTestTopic;
+    @Value("${my.topic}")
+    private String kafkaTopicName;
 
-    // Single topic
-//    @Bean
-//    public NewTopic buildKafkaTestTopic() {
-//        log.info("Creating kafka topic: {}", kafkaTestTopic);
-//        return TopicBuilder.name(kafkaTestTopic).build();
-//    }
-
-    // Multiple topics
     @Bean
     public KafkaAdmin.NewTopics buildKafkaTopics() {
         return new KafkaAdmin.NewTopics(
-                TopicBuilder.name(kafkaTestTopic).build(),
-                TopicBuilder.name("multi-topic-builder-example").build()
+                TopicBuilder.name(kafkaTopicName)
+                        .build()
         );
     }
 
