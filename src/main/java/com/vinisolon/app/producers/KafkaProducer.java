@@ -1,29 +1,28 @@
 package com.vinisolon.app.producers;
 
-import lombok.AllArgsConstructor;
+import com.vinisolon.app.dtos.Request;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
 
-import static com.vinisolon.app.utils.JsonConverterUtil.toJson;
-
 @Slf4j
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class KafkaProducer {
 
-    private final KafkaTemplate<String, Object> kafkaTemplate;
+    private final KafkaTemplate<String, Request> kafkaTemplate;
 
-    public void publish(Object payload, String topic) {
-        var json = toJson(payload);
+    public void publish(String topic, Request request) {
+        log.info("topic={} request={}", request, topic);
 
-        log.info("Publishing JSON: {} in TOPIC: {}", json, topic);
-
-        var message = MessageBuilder.withPayload(json)
+        var message = MessageBuilder.withPayload(request)
                 .setHeader(KafkaHeaders.TOPIC, topic)
                 .build();
+
+        log.info("message={}", message);
 
         kafkaTemplate.send(message);
     }
