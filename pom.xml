@@ -11,9 +11,9 @@
 	</parent>
 
 	<groupId>com.vinisolon.app</groupId>
-	<artifactId>kafka-example</artifactId>
+	<artifactId>spring-boot-kafka-example</artifactId>
 	<version>1.0.0</version>
-	<name>kafka-example</name>
+	<name>spring-boot-kafka-example</name>
 	<description>Kafka with Spring</description>
 
 	<properties>
